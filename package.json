@@ -1,0 +1,41 @@
+{
+  "name": "appium-demo",
+  "version": "1.0.0",
+  "description": "Appium Demo",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "appium",
+    "sampl",
+    "examples"
+  ],
+  "author": "Carlos Ferrao",
+  "license": "Wefox",
+  "devDependencies": {
+    "chai": "^2.2.0",
+    "chai-as-promised": "^5.0.0",
+    "colors": "^1.0.3",
+    "mocha": "^2.4.5",
+    "q": "^2.0.2",
+    "underscore": "^1.8.3",
+    "wd": "^0.3.11"
+  },
+  "scripts": {
+    "test-objects": "mocha ./specs/test-login.js"
+  },
+  "dependencies": {
+    "caporal": "^0.9.0",
+    "handlebars": "^4.0.11",
+    "jira-connector": "^2.7.0",
+    "mocha-junit-reporter": "^1.17.0",
+    "mocha-prepare": "^0.1.0",
+    "node-resemble-js": "^0.2.0",
+    "nodemailer": "^4.4.2",
+    "png-crop": "0.0.1",
+    "selenium-webdriver": "^3.0.0-beta-3",
+    "wd-bridge": "0.0.2",
+    "xml2js": "^0.4.19"
+  }
+}
