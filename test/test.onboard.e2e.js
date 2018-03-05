@@ -12,6 +12,7 @@ makeTest("Example Test - E2E -", function (setupdriver) {
 
   it("Swipe OnBoard to register", async function () {
     await examplpePage.clickElement();
+    await examplpePage.moveToDownTo('exampleSelector3');
     expect(await examplpePage.buttonDisplayed()).to.be.true;
     return driver;
   });

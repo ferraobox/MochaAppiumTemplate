@@ -21,6 +21,10 @@ module.exports = class ExamplpePage{
         return this.d
             .execute('mobile: scroll', {direction: 'down'})
     };
+    //custom method on ./helpers/actions.js
+    moveToDownTo(ele) {
+        return this.d.moveToDownXpath(this[ele]);
+    };
     
     clickElement() {
         return this.d
