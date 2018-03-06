@@ -26,6 +26,21 @@ module.exports = class ExamplpePage{
         return this.d.moveToDownXpath(this[ele]);
     };
     
+    screenshotIsCorrect(){
+        var standardDoc = require('path').resolve('images/example.png');
+        return this.d
+        .waitForElementByAccessibilityId(this.shareAid, 20000)
+        .screenShot('example')
+            .then((png)=>{
+            var screenshot = require('path').resolve(png);    
+            return this.d.compareScreenshots(standardDoc,screenshot, 50)
+                .then((result) => {
+                    return result;
+                });
+        });
+    };
+
+
     clickElement() {
         return this.d
             .waitForElementByXPath(this.exampleSelector, 20000)

@@ -24,13 +24,16 @@ exports.compareScreenshots = function (screenshot1, screenshot2, percentage) {
    * @param {string} message Message if the images are equal
    * @returns {boolean}
    */
-  resemble(screenshot1, screenshot2, data => {
-    console.log('mismatch percentage is ', data.misMatchPercentage);
-    if (data.misMatchPercentage <= percentage) {
-      return true;
-    } else {
-      return false;
-    }
+  return new Promise(resolve => {
+    resemble(screenshot1, screenshot2)
+    .then((data) => {
+      console.log('Mismatch percentage is ', data.misMatchPercentage);
+      if (data.misMatchPercentage <= percentage) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
   });
 };
 

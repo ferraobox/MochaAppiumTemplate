@@ -14,6 +14,7 @@ makeTest("Example Test - E2E -", function (setupdriver) {
     await examplpePage.clickElement();
     await examplpePage.moveToDownTo('exampleSelector3');
     expect(await examplpePage.buttonDisplayed()).to.be.true;
+    expect(await examplpePage.screenshotIsCorrect()).to.be.true;
     return driver;
   });
   
