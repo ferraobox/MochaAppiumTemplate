@@ -1,4 +1,4 @@
-# QA Automation framework for ONE
+# QA Automation Builderplate for Native APP (iOs - Android)
 
 This project was think for QAs with less technical Knowledge, for someone can add test and anyone of the team can download the repository and run the tests in anywhere.
 
