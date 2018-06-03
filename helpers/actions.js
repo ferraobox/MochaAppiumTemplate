@@ -5,16 +5,17 @@ var fs = require('fs');
 var resemble = require('../services/resemble');
 
 //Custom methods for ONE components
-exports.screenShot = async function (name){
- var png = await this.takeScreenshot();
-  let filename = './images/'+name+process.env.DEVICE+'.png';
+exports.screenShot = async function(name) {
+  var png = await this.takeScreenshot();
+  let filename = './images/' + name + process.env.DEVICE + '.png';
   console.log(filename);
   var stream = await fs.createWriteStream(filename);
   stream.write(new Buffer(png, 'base64'));
   stream.end();
+  return filename;
 };
 
-exports.compareScreenshots = function (screenshot1, screenshot2, percentage) {
+exports.compareScreenshots = function(screenshot1, screenshot2, percentage) {
   /**
    * @function compareScreenshots
    * @description Compares two screenshots and validates that they look equal.
@@ -25,8 +26,7 @@ exports.compareScreenshots = function (screenshot1, screenshot2, percentage) {
    * @returns {boolean}
    */
   return new Promise(resolve => {
-    resemble(screenshot1, screenshot2)
-    .then((data) => {
+    resemble(screenshot1, screenshot2).then(data => {
       console.log('Mismatch percentage is ', data.misMatchPercentage);
       if (data.misMatchPercentage <= percentage) {
         resolve(true);
@@ -37,7 +37,7 @@ exports.compareScreenshots = function (screenshot1, screenshot2, percentage) {
   });
 };
 
-exports.cropImage = function (width, heigth, top, left, imagePath) {
+exports.cropImage = function(width, heigth, top, left, imagePath) {
   /**
    * @function cropImage
    * @description Crops an image taking 4 position parameters. If paramaters aren't passed into the function, then it takes default parameters.
@@ -49,8 +49,8 @@ exports.cropImage = function (width, heigth, top, left, imagePath) {
    */
   var config1 = { width: 400, height: 400, top: 60 };
 
-  this.perform(function (done) {
-    PNGCrop.crop(imagePath, imagePath, config1, function (err) {
+  this.perform(function(done) {
+    PNGCrop.crop(imagePath, imagePath, config1, function(err) {
       if (err) throw err;
       done();
     });
@@ -58,88 +58,141 @@ exports.cropImage = function (width, heigth, top, left, imagePath) {
   return this;
 };
 
-exports.moveToDownXpath = async function (ele) {
+exports.elementExistXpath = async function(ele) {
+  let elem = await this.elementsByXPath(ele);
+  return elem.length > 0 ? true : false;
+};
+
+exports.hideKeyboardTouch = async function(ele) {
+  var size = await this.getWindowSize();
+  const startX = Math.ceil(size.width * 0.8);
+  const startY = Math.ceil(size.height * 0.4);
+  const endY = Math.ceil(size.height * 0.1);
+  let action = new wd.TouchAction(this);
+  await action
+    .press({ x: startX, y: startY })
+    .moveTo({ x: 0, y: endY - startY })
+    .release()
+    .perform();
+  return this;
+};
+
+exports.moveToDownXpath = async function(ele) {
   var currentTime = new Date().getTime();
   var timeEnd = currentTime + 20000;
-  var elementFound = [];
+  var elementsFound = [];
+  var elementFound = false;
   var size = await this.getWindowSize();
   const startX = Math.ceil(size.width * 0.3);
   const startY = Math.ceil(size.height * 0.8);
   const endY = Math.ceil(size.height * 0.2);
-  while (currentTime < timeEnd && elementFound.length < 1) {
+  while (currentTime < timeEnd && elementFound === false) {
     currentTime = new Date().getTime();
     let action = new wd.TouchAction(this);
     await action
       .press({ x: startX, y: startY })
-      .moveTo({ x: startX, y: endY })
+      .moveTo({ x: 0, y: endY - startY })
       .release()
       .perform();
-    elementFound = await this.elementsByXPath(ele);
+    elementsFound = await this.elementsByXPath(ele);
+    if (elementsFound.length > 0) elementFound = await this.elementByXPath(ele).isDisplayed();
   }
   return this;
 };
 
-exports.moveToDownAccessibilityId = async function (ele) {
+exports.moveToDownAccessibilityId = async function(ele) {
   var currentTime = new Date().getTime();
   var timeEnd = currentTime + 20000;
-  var elementFound = [];
+  var elementsFound = [];
+  var elementFound = false;
   var size = await this.getWindowSize();
   const startX = Math.ceil(size.width * 0.3);
   const startY = Math.ceil(size.height * 0.8);
   const endY = Math.ceil(size.height * 0.2);
-  while (currentTime < timeEnd && elementFound.length < 1) {
+  while (currentTime < timeEnd && elementFound === false) {
     currentTime = new Date().getTime();
     let action = new wd.TouchAction(this);
     await action
       .press({ x: startX, y: startY })
-      .moveTo({ x: startX, y: endY })
+      .moveTo({ x: 0, y: endY - startY })
       .release()
       .perform();
-    elementFound = await this.elementsByAccessibilityId(ele);
+    elementsFound = await this.elementsByAccessibilityId(ele);
+    if (elementsFound.length > 0) elementFound = await this.elementByAccessibilityId(ele).isDisplayed();
   }
   return this;
 };
 
-exports.moveToUpXpath = async function (ele) {
+exports.moveToUpXpath = async function(ele) {
   var currentTime = new Date().getTime();
   var timeEnd = currentTime + 20000;
-  var elementFound = [];
+  var elementsFound = [];
+  var elementFound = false;
   var size = await this.getWindowSize();
-  const startX = Math.ceil(size.width * 0.3);
+  const startX = Math.ceil(size.width * 0.5);
+  const startY = Math.ceil(size.height * 0.3);
+  const endY = Math.ceil(size.height * 0.7);
+  while (currentTime < timeEnd && elementFound === false) {
+    currentTime = new Date().getTime();
+    let action = new wd.TouchAction(this);
+    await action
+      .press({ x: startX, y: startY })
+      .moveTo({ x: 0, y: endY - startY })
+      .release()
+      .perform();
+    elementsFound = await this.elementsByXPath(ele);
+    if (elementsFound.length > 0) elementFound = await this.elementByXPath(ele).isDisplayed();
+  }
+  return this;
+};
+
+exports.moveToUpAccessibilityId = async function(ele) {
+  var currentTime = new Date().getTime();
+  var timeEnd = currentTime + 20000;
+  var elementsFound = [];
+  var elementFound = false;
+  var size = await this.getWindowSize();
+  const startX = Math.ceil(size.width * 0.8);
   const startY = Math.ceil(size.height * 0.2);
   const endY = Math.ceil(size.height * 0.8);
-  while (currentTime < timeEnd && elementFound.length < 1) {
+  while (currentTime < timeEnd && elementFound === false) {
     currentTime = new Date().getTime();
     let action = new wd.TouchAction(this);
     await action
       .press({ x: startX, y: startY })
-      .moveTo({ x: startX, y: endY })
+      .moveTo({ x: 0, y: endY - startY })
       .release()
       .perform();
-    elementFound = await this.elementsByXPath(ele);
+    elementsFound = await this.elementsByAccessibilityId(ele);
+    if (elementsFound.length > 0) elementFound = await this.elementByAccessibilityId(ele).isDisplayed();
   }
   return this;
 };
 
-exports.slideToRightXpath = function (ele) {
-  return this
-    .waitForElementByXPath(ele, 20000)
-    .elementByXPath(ele).getLocation()
-    .then((loc) => {
-      let action = new wd.TouchAction(this);
-      const startX = loc.x + 16;
-      const startY = loc.y + 16;
-      const endX = startX + 150;
-      return action
-        .press({ x: startX, y: startY })
-        .wait(1000)
-        .moveTo({ x: endX, y: startY })
-        .release()
-        .perform();
-    });
+exports.slideToRightXpath = async function(ele, _startPosition) {
+  //start position should be percentage 0 - 1, if you want 50%, you should write 0,5
+  let startPosition = _startPosition || 0;
+  var windowSize = await this.getWindowSize();
+  let sizeElement = await this.waitForElementByXPath(ele, 20000)
+    .elementByXPath(ele)
+    .getSize();
+  let location = await this.elementByXPath(ele).getLocation();
+  let action = new wd.TouchAction(this);
+  console.log('Dimensiones: ', sizeElement.width, '-', sizeElement.height, ' Location: ', location.x, '-', location.y);
+  const xposition = sizeElement.width * startPosition;
+  const startX = Math.ceil(location.x + xposition + 11);
+  const startY = Math.ceil(location.y + 11);
+  const endX = Math.ceil(windowSize.width * 0.8);
+  console.log('Touch before: ', startX, '-', startY, ' Touch after: ', endX, '-', startY);
+  await action
+    .press({ x: startX, y: startY })
+    .moveTo({ x: endX - startX, y: 0 })
+    .release()
+    .perform();
+  return this;
 };
 
-exports.swipeTo = async function (direction) {
+exports.swipeTo = async function(direction) {
   var size = await this.getWindowSize();
   const startY = Math.ceil(size.height * 0.6);
   //Default right swipe
@@ -148,8 +201,61 @@ exports.swipeTo = async function (direction) {
   let action = new wd.TouchAction(this);
   await action
     .press({ x: direction === 'right' ? startX : endX, y: startY })
-    .moveTo({ x: direction === 'right' ? endX : startX, y: startY })
+    .moveTo({ x: direction === 'right' ? endX - startX : startX - endX, y: 0 })
     .release()
     .perform();
   return this;
+};
+
+//Custom methos for actions
+exports.pinch = function(el) {
+  return Q.all([el.getSize(), el.getLocation()]).then(
+    function(res) {
+      var size = res[0];
+      var loc = res[1];
+      var center = {
+        x: loc.x + size.width / 2,
+        y: loc.y + size.height / 2
+      };
+      var a1 = new wd.TouchAction(this);
+      a1
+        .press({ el: el, x: center.x, y: center.y - 100 })
+        .moveTo({ el: el })
+        .release();
+      var a2 = new wd.TouchAction(this);
+      a2
+        .press({ el: el, x: center.x, y: center.y + 100 })
+        .moveTo({ el: el })
+        .release();
+      var m = new wd.MultiAction(this);
+      m.add(a1, a2);
+      return m.perform();
+    }.bind(this)
+  );
+};
+
+exports.zoom = function(el) {
+  return Q.all([this.getWindowSize(), this.getLocation(el)]).then(
+    function(res) {
+      var size = res[0];
+      var loc = res[1];
+      var center = {
+        x: loc.x + size.width / 2,
+        y: loc.y + size.height / 2
+      };
+      var a1 = new wd.TouchAction(this);
+      a1
+        .press({ el: el })
+        .moveTo({ el: el, x: center.x, y: center.y - 100 })
+        .release();
+      var a2 = new wd.TouchAction(this);
+      a2
+        .press({ el: el })
+        .moveTo({ el: el, x: center.x, y: center.y + 100 })
+        .release();
+      var m = new wd.MultiAction(this);
+      m.add(a1, a2);
+      return m.perform();
+    }.bind(this)
+  );
 };

@@ -1,5 +1,5 @@
-  exports.iosDevIPA = "";
-  exports.iosPreIPA = "";
-  exports.iosUICatalogApp = "";
-  exports.androidApiDemos = "";
-  exports.selendroidTestApp = "";
+exports.iosDevIPA = '';
+exports.iosPreIPA = '';
+exports.iosUICatalogApp = '';
+exports.androidApiDemos = '';
+exports.selendroidTestApp = '';

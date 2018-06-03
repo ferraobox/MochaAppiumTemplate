@@ -1,17 +1,17 @@
 var JiraClient = require('jira-connector');
 // Base64 encoding of 'SirUserOfName:Password123'
 var jira = new JiraClient({
-  host: 'example.atlassian.net',
+  host: 'testtest.atlassian.net',
   basic_auth: {
-    base64: '....'
+    base64: '=='
   }
   // basic_auth: {
-  //   username: '....',
-  //   password: '...'
+  //   username: 'carlos.ferrao@wefoxgroup.com',
+  //   password: ''
   // }
 });
 
-module.exports = {  
+module.exports = {
   jiraService: function(resultsTest) {
     return new Promise(resolve => {
       var name = resultsTest.fullName;
@@ -21,10 +21,9 @@ module.exports = {
         searchIssue(resultsTest).then(res => {
           var issuesTest = res;
           if (issuesTest.length === 0) {
-            createIssue(resultsTest)
-              .then(resIssue => {
-                console.log('issuesTest: ', resIssue);
-                resolve(jsonIssue(name, resIssue));
+            createIssue(resultsTest).then(resIssue => {
+              console.log('issuesTest: ', resIssue);
+              resolve(jsonIssue(name, resIssue));
             });
           } else {
             resolve(jsonIssue(name, issuesTest));
@@ -36,68 +35,65 @@ module.exports = {
 };
 
 function jsonIssue(name, issuesTest) {
-    var issue = {};
-    issue[name] = issuesTest;
-    return issue;
+  var issue = {};
+  issue[name] = issuesTest;
+  return issue;
 }
 
 function createIssue(resultsTest) {
-    return new Promise((resolve, reject) => {
-      var summary = 'ONE: '+process.env.OS + ' - ' + resultsTest.fullName;
-      var assertresult = '';
-      var description = createDescription(resultsTest);
-      var jsonIssue = {
-        fields: {
-          project: {
-            key: 'WQA'
-          },
-          summary: summary,
-          assignee: { name: 'carlos.ferrao' },
-          description: description,
-          issuetype: {
-            name: 'Bug'
-          }
+  return new Promise((resolve, reject) => {
+    var summary = process.env.OS + ' - ' + resultsTest.fullName;
+    var assertresult = '';
+    var description = createDescription(resultsTest);
+    var jsonIssue = {
+      fields: {
+        project: {
+          key: ''
+        },
+        summary: summary,
+        assignee: { name: '' },
+        description: description,
+        issuetype: {
+          name: 'Bug'
         }
-      };
-      var issuesList = [];
-      jira.issue.createIssue(jsonIssue, function (err, issue) {
-        if (err) {
-          console.log(err);
-          reject();
-        }
-        console.log('issue create: ', issue)
-        issuesList.push(issue.key);
-        resolve(issuesList);
-      });
+      }
+    };
+    var issuesList = [];
+    jira.issue.createIssue(jsonIssue, function(err, issue) {
+      if (err) {
+        console.log(err);
+        reject();
+      }
+      console.log('issue create: ', issue);
+      issuesList.push(issue.key);
+      resolve(issuesList);
     });
-  }
+  });
+}
 
-  function searchIssue(resultsTest) {
-    return new Promise((resolve, reject) => {
-      var summary = 'ONE: '+process.env.OS + ' - ' + resultsTest.fullName;
-      var jsonSearch = {
-        jql: `summary ~ "\\"${summary}\\"" AND project = "wefox QA"`,
-        startAt: '0',
-        maxResults: '2',
-        validateQuery: true
-      };
-      jira.search.search(jsonSearch, function (err, output) {
-        if (err) {
-          console.log(err);
-          reject();
-        }
-        if (output.issues.length > 0) {
-          console.log('------> Encuentra la issue');
-          processIssues(output, resultsTest).then(issuesList =>
-            resolve(issuesList)
-          );
-        } else {
-          var issuesListEmpty = [];
-          resolve(issuesListEmpty);
-        }
-      });
+function searchIssue(resultsTest) {
+  return new Promise((resolve, reject) => {
+    var summary = process.env.OS + ' - ' + resultsTest.fullName;
+    var jsonSearch = {
+      jql: `summary ~ "\\"${summary}\\"" AND project = "QA"`,
+      startAt: '0',
+      maxResults: '2',
+      validateQuery: true
+    };
+    jira.search.search(jsonSearch, function(err, output) {
+      if (err) {
+        console.log(err);
+        reject();
+      }
+      if (output.issues.length > 0) {
+        processIssues(output, resultsTest).then(issuesList => resolve(issuesList));
+      } else {
+        var issuesListEmpty = [];
+        resolve(issuesListEmpty);
+      }
     });
-  }
+  });
+}
 
 function updateIssue(issue, description) {
   return new Promise((resolve, reject) => {
@@ -121,7 +117,7 @@ function updateIssue(issue, description) {
         }
       }
     };
-    jira.issue.editIssue(message, function (err, issue) {
+    jira.issue.editIssue(message, function(err, issue) {
       if (err) {
         console.log(err);
         reject();
@@ -133,7 +129,6 @@ function updateIssue(issue, description) {
 
 function reopenIssue(issue) {
   return new Promise((resolve, reject) => {
-    console.log('LLega Reopen Issue: -----> ', issue.key, issue.fields.status);
     if (issue.fields.status.name === 'Done') {
       var message = {
         issueKey: issue.key,
@@ -151,7 +146,7 @@ function reopenIssue(issue) {
           key: 'new'
         }
       };
-      jira.issue.transitionIssue(message, function (err, issueChanged) {
+      jira.issue.transitionIssue(message, function(err, issueChanged) {
         if (err) {
           resolve();
         }
@@ -164,12 +159,7 @@ function reopenIssue(issue) {
 }
 
 function createDescription(resultsTest) {
-  var description =
-    'h3. Description \n h3. (!) Pre-conditions \n * *DEVICE:* - ' +
-    process.env.DEVICE +
-    '\n * *OS:* ' +
-    process.env.OS +
-    '\n h3. (i) How to reproduce \n * Steps: \n';
+  var description = 'h3. Description \n h3. (!) Pre-conditions \n * *DEVICE:* - ' + process.env.DEVICE + '\n * *OS:* ' + process.env.OS + '\n h3. (i) How to reproduce \n * Steps: \n';
   //issue information
   resultsTest.specs.forEach(step => {
     description += '** ' + step.description + ' - ' + step.status + ' \n';
@@ -187,7 +177,7 @@ function processIssues(output, resultsTest) {
         return getIssueJira(issue)
           .then(issueResult => reopenIssue(issueResult))
           .then(() => updateIssue(issue, description))
-          .catch(function (err) {
+          .catch(function(err) {
             console.log('error' + '\n' + err);
           });
       })
@@ -203,7 +193,7 @@ function getIssueJira(issue) {
       {
         issueKey: issue.key
       },
-      function (err, issueResult) {
+      function(err, issueResult) {
         if (err) {
           console.log(err);
           reject();

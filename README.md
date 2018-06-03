@@ -1,7 +1,4 @@
-
-# QA Automation
-
-Appium + Mocha - Junit report - Html report - Jira and mail integration - Parallel execution - Ready for screenshot testing
+# QA Automation framework for ONE
 
 This project was think for QAs with less technical Knowledge, for someone can add test and anyone of the team can download the repository and run the tests in anywhere.
 
@@ -33,7 +30,7 @@ After that you can check if your appium server is installed correctly with this 
 npm install -g appium-doctor
 ```
 
-If you execute in your terminal 
+If you execute in your terminal
 
 ```
 appium-doctor
@@ -44,6 +41,7 @@ This feature say you if you need solve some problem or add some configuration. T
 ```
 npm install
 ```
+
 This install all dependencies of project.
 
 ## Running the tests
@@ -53,22 +51,21 @@ For to run the automated tests you should go to the directory and execute this c
 ```
 node runner.js -d iphoneX
 ```
+
 For view all parameters and features of runner, you can execute:
 
 ```
 node runner.js -h
 ```
+
 ### Break down into end to end tests
 
 You can reveive email when the test execution fail, and you can parametrice it, if you want open issues on JIRA, or compare screenchots for expects of test..
 
-
-* [Node](https://nodejs.org/en/) - 
-* [Appium](http://appium.io/) - 
-* [Mocha](https://mochajs.org/) - 
-
+* [Node](https://nodejs.org/en/) -
+* [Appium](http://appium.io/) -
+* [Mocha](https://mochajs.org/) -
 
 ## Author
 
-* **Carlos Ferrao** - *Initial work* - 
-
+* **Carlos Ferrao** - _Initial work_ -
