@@ -1,7 +1,7 @@
-var fs = require('fs');
-var handlebars = require('handlebars');
-var todayGenerator = require('../getDate');
-var today = todayGenerator();
+const fs = require('fs');
+const handlebars = require('handlebars');
+const todayGenerator = require('../getDate');
+const today = todayGenerator();
 
 module.exports = {
   exportHTML: function(resultsTest) {

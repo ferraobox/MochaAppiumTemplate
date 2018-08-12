@@ -1,5 +1,5 @@
-var os = process.env.OS === 'iOS' ? 'i' : 'a';
-var todayGenerator = require('../services/getDate');
+const os = process.env.OS === 'iOS' ? 'i' : 'a';
+const todayGenerator = require('../services/getDate');
 
 module.exports = function dataGenerator(pay) {
   let _pay = pay || '';

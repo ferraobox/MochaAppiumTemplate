@@ -1,8 +1,8 @@
-var wd = require('wd'),
+const wd = require('wd'),
   Q = require('q');
-var PNGCrop = require('png-crop');
-var fs = require('fs');
-var resemble = require('../services/resemble');
+const PNGCrop = require('png-crop');
+const fs = require('fs');
+const resemble = require('../services/resemble');
 
 //Custom methods for ONE components
 exports.screenShot = async function(name) {
@@ -47,7 +47,7 @@ exports.cropImage = function(width, heigth, top, left, imagePath) {
    * @param {number} left Parameter as a number
    * @param {string} imagePath The path of the expected image for being cropped
    */
-  var config1 = { width: 400, height: 400, top: 60 };
+  const config1 = { width: 400, height: 400, top: 60 };
 
   this.perform(function(done) {
     PNGCrop.crop(imagePath, imagePath, config1, function(err) {
@@ -64,7 +64,7 @@ exports.elementExistXpath = async function(ele) {
 };
 
 exports.hideKeyboardTouch = async function(ele) {
-  var size = await this.getWindowSize();
+  const size = await this.getWindowSize();
   const startX = Math.ceil(size.width * 0.8);
   const startY = Math.ceil(size.height * 0.4);
   const endY = Math.ceil(size.height * 0.1);
@@ -218,13 +218,11 @@ exports.pinch = function(el) {
         y: loc.y + size.height / 2
       };
       var a1 = new wd.TouchAction(this);
-      a1
-        .press({ el: el, x: center.x, y: center.y - 100 })
+      a1.press({ el: el, x: center.x, y: center.y - 100 })
         .moveTo({ el: el })
         .release();
       var a2 = new wd.TouchAction(this);
-      a2
-        .press({ el: el, x: center.x, y: center.y + 100 })
+      a2.press({ el: el, x: center.x, y: center.y + 100 })
         .moveTo({ el: el })
         .release();
       var m = new wd.MultiAction(this);
@@ -244,13 +242,11 @@ exports.zoom = function(el) {
         y: loc.y + size.height / 2
       };
       var a1 = new wd.TouchAction(this);
-      a1
-        .press({ el: el })
+      a1.press({ el: el })
         .moveTo({ el: el, x: center.x, y: center.y - 100 })
         .release();
       var a2 = new wd.TouchAction(this);
-      a2
-        .press({ el: el })
+      a2.press({ el: el })
         .moveTo({ el: el, x: center.x, y: center.y + 100 })
         .release();
       var m = new wd.MultiAction(this);

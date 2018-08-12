@@ -1,9 +1,9 @@
 require('colors');
-var chai = require('chai');
-var chaiAsPromised = require('chai-as-promised');
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 const { execSync } = require('child_process');
 //Set up driver
-var wd = require('wd'),
+const wd = require('wd'),
   _ = require('underscore'),
   actions = require('./actions'),
   serverConfigs = require('./appium-servers');
@@ -23,20 +23,20 @@ wd.addPromiseChainMethod('elementExistXpath', actions.elementExistXpath);
 chai.use(chaiAsPromised);
 chaiAsPromised.transferPromiseness = wd.transferPromiseness;
 //Configure driver
-var driver = wd.promiseChainRemote(serverConfigs.local);
+const driver = wd.promiseChainRemote(serverConfigs.local);
 require('./logging').configure(driver);
-var desired = require('./caps')[process.env.DEVICE];
+const desired = require('./caps')[process.env.DEVICE];
 //External Services
-var removeScreenShots = require('../services/removeScreenShots');
-var { jiraService } = require('../services/jira');
-var todayGenerator = require('../services/getDate');
+const removeScreenShots = require('../services/removeScreenShots');
+const { jiraService } = require('../services/jira');
+const todayGenerator = require('../services/getDate');
 
 //Make test hooks are executed before and after of each test, for hooks before the execution, you should go to mocha.prepare
-var makeTest = function(desc, cb, retries) {
-  var retriesCount = retries || 0;
+const makeTest = function(desc, cb, retries) {
+  let retriesCount = retries || 0;
   describe(desc, function() {
-    var runTest = true;
-    var specs = [];
+    let runTest = true;
+    let specs = [];
     this.timeout(180000);
 
     before(function() {
@@ -69,7 +69,7 @@ var makeTest = function(desc, cb, retries) {
       } else {
         runTest = false;
         console.log('\x1b[31m%s\x1b[0m', '> [ ' + process.env.DEVICE + ' ]: ' + this.currentTest.title + ' -> ' + this.currentTest.state);
-        var screenshot =
+        const screenshot =
           'fails/' +
           (await todayGenerator()
             .replace(/\//g, '-')

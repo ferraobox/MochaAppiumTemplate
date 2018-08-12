@@ -1,7 +1,7 @@
-var fs = require('fs');
-var xml2js = require('xml2js');
-var parser = new xml2js.Parser();
-var results = {};
+const fs = require('fs');
+const xml2js = require('xml2js');
+const parser = new xml2js.Parser();
+const results = {};
 
 module.exports = {
   readXML: function() {

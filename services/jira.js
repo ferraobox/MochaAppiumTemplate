@@ -1,6 +1,6 @@
-var JiraClient = require('jira-connector');
+const JiraClient = require('jira-connector');
 // Base64 encoding of 'SirUserOfName:Password123'
-var jira = new JiraClient({
+const jira = new JiraClient({
   host: 'testtest.atlassian.net',
   basic_auth: {
     base64: '=='

@@ -1,7 +1,6 @@
-var html = require('./html');
-var fs = require('fs');
-var { readXML } = require('../xml');
-var results = {};
+const html = require('./html');
+const { readXML } = require('../xml');
+const results = {};
 
 module.exports = {
   generateReport: function() {
