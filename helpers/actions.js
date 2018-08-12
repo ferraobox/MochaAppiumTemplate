@@ -6,10 +6,10 @@ const resemble = require('../services/resemble');
 
 //Custom methods for ONE components
 exports.screenShot = async function(name) {
-  var png = await this.takeScreenshot();
+  let png = await this.takeScreenshot();
   let filename = './images/' + name + process.env.DEVICE + '.png';
   console.log(filename);
-  var stream = await fs.createWriteStream(filename);
+  let stream = await fs.createWriteStream(filename);
   stream.write(new Buffer(png, 'base64'));
   stream.end();
   return filename;
@@ -78,11 +78,11 @@ exports.hideKeyboardTouch = async function(ele) {
 };
 
 exports.moveToDownXpath = async function(ele) {
-  var currentTime = new Date().getTime();
-  var timeEnd = currentTime + 20000;
-  var elementsFound = [];
-  var elementFound = false;
-  var size = await this.getWindowSize();
+  let currentTime = new Date().getTime();
+  let timeEnd = currentTime + 20000;
+  let elementsFound = [];
+  let elementFound = false;
+  let size = await this.getWindowSize();
   const startX = Math.ceil(size.width * 0.3);
   const startY = Math.ceil(size.height * 0.8);
   const endY = Math.ceil(size.height * 0.2);
@@ -101,11 +101,11 @@ exports.moveToDownXpath = async function(ele) {
 };
 
 exports.moveToDownAccessibilityId = async function(ele) {
-  var currentTime = new Date().getTime();
-  var timeEnd = currentTime + 20000;
-  var elementsFound = [];
-  var elementFound = false;
-  var size = await this.getWindowSize();
+  let currentTime = new Date().getTime();
+  let timeEnd = currentTime + 20000;
+  let elementsFound = [];
+  let elementFound = false;
+  let size = await this.getWindowSize();
   const startX = Math.ceil(size.width * 0.3);
   const startY = Math.ceil(size.height * 0.8);
   const endY = Math.ceil(size.height * 0.2);
@@ -124,11 +124,11 @@ exports.moveToDownAccessibilityId = async function(ele) {
 };
 
 exports.moveToUpXpath = async function(ele) {
-  var currentTime = new Date().getTime();
-  var timeEnd = currentTime + 20000;
-  var elementsFound = [];
-  var elementFound = false;
-  var size = await this.getWindowSize();
+  let currentTime = new Date().getTime();
+  let timeEnd = currentTime + 20000;
+  let elementsFound = [];
+  let elementFound = false;
+  let size = await this.getWindowSize();
   const startX = Math.ceil(size.width * 0.5);
   const startY = Math.ceil(size.height * 0.3);
   const endY = Math.ceil(size.height * 0.7);
@@ -147,11 +147,11 @@ exports.moveToUpXpath = async function(ele) {
 };
 
 exports.moveToUpAccessibilityId = async function(ele) {
-  var currentTime = new Date().getTime();
-  var timeEnd = currentTime + 20000;
-  var elementsFound = [];
-  var elementFound = false;
-  var size = await this.getWindowSize();
+  let currentTime = new Date().getTime();
+  let timeEnd = currentTime + 20000;
+  let elementsFound = [];
+  let elementFound = false;
+  let size = await this.getWindowSize();
   const startX = Math.ceil(size.width * 0.8);
   const startY = Math.ceil(size.height * 0.2);
   const endY = Math.ceil(size.height * 0.8);
@@ -172,7 +172,7 @@ exports.moveToUpAccessibilityId = async function(ele) {
 exports.slideToRightXpath = async function(ele, _startPosition) {
   //start position should be percentage 0 - 1, if you want 50%, you should write 0,5
   let startPosition = _startPosition || 0;
-  var windowSize = await this.getWindowSize();
+  let windowSize = await this.getWindowSize();
   let sizeElement = await this.waitForElementByXPath(ele, 20000)
     .elementByXPath(ele)
     .getSize();
@@ -193,7 +193,7 @@ exports.slideToRightXpath = async function(ele, _startPosition) {
 };
 
 exports.swipeTo = async function(direction) {
-  var size = await this.getWindowSize();
+  let size = await this.getWindowSize();
   const startY = Math.ceil(size.height * 0.6);
   //Default right swipe
   const startX = Math.ceil(size.width * 0.1);
@@ -211,21 +211,21 @@ exports.swipeTo = async function(direction) {
 exports.pinch = function(el) {
   return Q.all([el.getSize(), el.getLocation()]).then(
     function(res) {
-      var size = res[0];
-      var loc = res[1];
-      var center = {
+      let size = res[0];
+      let loc = res[1];
+      let center = {
         x: loc.x + size.width / 2,
         y: loc.y + size.height / 2
       };
-      var a1 = new wd.TouchAction(this);
+      let a1 = new wd.TouchAction(this);
       a1.press({ el: el, x: center.x, y: center.y - 100 })
         .moveTo({ el: el })
         .release();
-      var a2 = new wd.TouchAction(this);
+      let a2 = new wd.TouchAction(this);
       a2.press({ el: el, x: center.x, y: center.y + 100 })
         .moveTo({ el: el })
         .release();
-      var m = new wd.MultiAction(this);
+      let m = new wd.MultiAction(this);
       m.add(a1, a2);
       return m.perform();
     }.bind(this)
@@ -235,21 +235,21 @@ exports.pinch = function(el) {
 exports.zoom = function(el) {
   return Q.all([this.getWindowSize(), this.getLocation(el)]).then(
     function(res) {
-      var size = res[0];
-      var loc = res[1];
-      var center = {
+      let size = res[0];
+      let loc = res[1];
+      let center = {
         x: loc.x + size.width / 2,
         y: loc.y + size.height / 2
       };
-      var a1 = new wd.TouchAction(this);
+      let a1 = new wd.TouchAction(this);
       a1.press({ el: el })
         .moveTo({ el: el, x: center.x, y: center.y - 100 })
         .release();
-      var a2 = new wd.TouchAction(this);
+      let a2 = new wd.TouchAction(this);
       a2.press({ el: el })
         .moveTo({ el: el, x: center.x, y: center.y + 100 })
         .release();
-      var m = new wd.MultiAction(this);
+      let m = new wd.MultiAction(this);
       m.add(a1, a2);
       return m.perform();
     }.bind(this)

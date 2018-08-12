@@ -5,7 +5,7 @@ const results = {};
 module.exports = {
   generateReport: function() {
     return new Promise(resolve => {
-      var pathFile = '';
+      let pathFile = '';
       results = readXML();
       html.exportHTML(results).then(pathHtml => {
         pathFile = pathHtml;

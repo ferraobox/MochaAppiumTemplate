@@ -6,7 +6,7 @@ const today = todayGenerator();
 module.exports = {
   exportHTML: function(resultsTest) {
     return new Promise((resolve, reject) => {
-      var pathHtml = '';
+      let pathHtml = '';
       createTables(resultsTest)
         .then(tablesHTML => writeHTML(tablesHTML))
         .then(msg => {
@@ -23,11 +23,11 @@ module.exports = {
 
 function createTables(resultsTest) {
   return new Promise(resolve => {
-    var tablesHTML = [];
+    let tablesHTML = [];
     for (key in resultsTest) {
       resultsTest[key].forEach(element => {
-        var testresults = element.testsuites.testsuite;
-        var table = `<h2>` + key + `</h2><table id="table_test"><tr><th> Type </th><th> Description </th><th> Result </th><th> Time </th></tr>`;
+        let testresults = element.testsuites.testsuite;
+        let table = `<h2>` + key + `</h2><table id="table_test"><tr><th> Type </th><th> Description </th><th> Result </th><th> Time </th></tr>`;
         tablesHTML.push(printTable(table, testresults));
       });
     }
@@ -39,7 +39,7 @@ function printTable(table, testresults) {
   let countTest = 1;
   testresults.forEach(element => {
     if (element.testcase) {
-      var test = {
+      let test = {
         steps: element.testcase,
         testcaseName: element.$.name,
         failures: element.$.failures,
@@ -54,17 +54,17 @@ function printTable(table, testresults) {
 }
 
 function writeHTML(tables) {
-  var reportFilename = 'TestResults-' + today.replace(/\//g, '_').replace(/\:/g, '_') + '.html';
-  var reportFilePath = './reports/' + reportFilename;
+  let reportFilename = 'TestResults-' + today.replace(/\//g, '_').replace(/\:/g, '_') + '.html';
+  let reportFilePath = './reports/' + reportFilename;
 
   return new Promise((resolve, reject) => {
     // read the html template
     fs.readFile('./services/reporter/html-reporter.hbs', function(err, data) {
       if (err) reject(err);
 
-      var template = data.toString();
+      let template = data.toString();
       // merge the template with the test results data
-      var html = handlebars.compile(template)({
+      let html = handlebars.compile(template)({
         tables: tables,
         timestamp: today,
         oneversion: process.env.ONE_VERSION

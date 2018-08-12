@@ -5,13 +5,13 @@ const results = {};
 
 module.exports = {
   readXML: function() {
-    var pathFile = '';
-    var currentBrowser = '';
+    let pathFile = '';
+    let currentBrowser = '';
     fs.readdirSync('./reports').forEach(file => {
       if (checkXml(file)) {
         currentBrowser = file.split('-')[0].replace('.xml', '');
-        var pathFile = './reports/' + file;
-        var tmp = importXml(pathFile);
+        let pathFile = './reports/' + file;
+        let tmp = importXml(pathFile);
         if (!results[currentBrowser]) {
           results[currentBrowser] = [];
         }
@@ -23,8 +23,8 @@ module.exports = {
 };
 
 function importXml(file) {
-  var data = fs.readFileSync(file, 'utf8');
-  var res = null;
+  let data = fs.readFileSync(file, 'utf8');
+  let res = null;
   parser.parseString(data, function(err, result) {
     if (!err) res = result;
   });
@@ -32,9 +32,9 @@ function importXml(file) {
 }
 
 function checkXml(file) {
-  var isXml = false;
-  var ext = '';
-  var stringLength = file.length;
+  let isXml = false;
+  let ext = '';
+  let stringLength = file.length;
   ext += file.charAt(stringLength - 3);
   ext += file.charAt(stringLength - 2);
   ext += file.charAt(stringLength - 1);

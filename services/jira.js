@@ -14,12 +14,12 @@ const jira = new JiraClient({
 module.exports = {
   jiraService: function(resultsTest) {
     return new Promise(resolve => {
-      var name = resultsTest.fullName;
+      let name = resultsTest.fullName;
       if (name === null) {
         resolve();
       } else {
         searchIssue(resultsTest).then(res => {
-          var issuesTest = res;
+          let issuesTest = res;
           if (issuesTest.length === 0) {
             createIssue(resultsTest).then(resIssue => {
               console.log('issuesTest: ', resIssue);
@@ -35,17 +35,17 @@ module.exports = {
 };
 
 function jsonIssue(name, issuesTest) {
-  var issue = {};
+  let issue = {};
   issue[name] = issuesTest;
   return issue;
 }
 
 function createIssue(resultsTest) {
   return new Promise((resolve, reject) => {
-    var summary = process.env.OS + ' - ' + resultsTest.fullName;
-    var assertresult = '';
-    var description = createDescription(resultsTest);
-    var jsonIssue = {
+    let summary = process.env.OS + ' - ' + resultsTest.fullName;
+    let assertresult = '';
+    let description = createDescription(resultsTest);
+    let jsonIssue = {
       fields: {
         project: {
           key: ''
@@ -58,7 +58,7 @@ function createIssue(resultsTest) {
         }
       }
     };
-    var issuesList = [];
+    let issuesList = [];
     jira.issue.createIssue(jsonIssue, function(err, issue) {
       if (err) {
         console.log(err);
@@ -73,8 +73,8 @@ function createIssue(resultsTest) {
 
 function searchIssue(resultsTest) {
   return new Promise((resolve, reject) => {
-    var summary = process.env.OS + ' - ' + resultsTest.fullName;
-    var jsonSearch = {
+    let summary = process.env.OS + ' - ' + resultsTest.fullName;
+    let jsonSearch = {
       jql: `summary ~ "\\"${summary}\\"" AND project = "QA"`,
       startAt: '0',
       maxResults: '2',
@@ -88,7 +88,7 @@ function searchIssue(resultsTest) {
       if (output.issues.length > 0) {
         processIssues(output, resultsTest).then(issuesList => resolve(issuesList));
       } else {
-        var issuesListEmpty = [];
+        let issuesListEmpty = [];
         resolve(issuesListEmpty);
       }
     });
@@ -97,7 +97,7 @@ function searchIssue(resultsTest) {
 
 function updateIssue(issue, description) {
   return new Promise((resolve, reject) => {
-    var message = {
+    let message = {
       issueKey: issue.key,
       issue: {
         issueKey: issue.key,
@@ -130,7 +130,7 @@ function updateIssue(issue, description) {
 function reopenIssue(issue) {
   return new Promise((resolve, reject) => {
     if (issue.fields.status.name === 'Done') {
-      var message = {
+      let message = {
         issueKey: issue.key,
         update: {
           comment: [
@@ -159,7 +159,7 @@ function reopenIssue(issue) {
 }
 
 function createDescription(resultsTest) {
-  var description = 'h3. Description \n h3. (!) Pre-conditions \n * *DEVICE:* - ' + process.env.DEVICE + '\n * *OS:* ' + process.env.OS + '\n h3. (i) How to reproduce \n * Steps: \n';
+  let description = 'h3. Description \n h3. (!) Pre-conditions \n * *DEVICE:* - ' + process.env.DEVICE + '\n * *OS:* ' + process.env.OS + '\n h3. (i) How to reproduce \n * Steps: \n';
   //issue information
   resultsTest.specs.forEach(step => {
     description += '** ' + step.description + ' - ' + step.status + ' \n';
@@ -169,8 +169,8 @@ function createDescription(resultsTest) {
 
 function processIssues(output, resultsTest) {
   return new Promise(resolve => {
-    var issuesList = [];
-    var description = createDescription(resultsTest);
+    let issuesList = [];
+    let description = createDescription(resultsTest);
     Promise.all(
       output.issues.map(issue => {
         issuesList.push(issue.key);
