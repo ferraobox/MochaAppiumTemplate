@@ -1,16 +1,21 @@
-# QA Automation Builderplate for Native APP (iOs - Android)
+# QA Automation framework for ONE
 
 This project was think for QAs with less technical Knowledge, for someone can add test and anyone of the team can download the repository and run the tests in anywhere.
 
 Is integrated with JIRA and Jenkins, the reports are reported them in Junit and HTML
 
-## Getting Started
-
-Download the repository with git on your local machine for development and testing purposes
-
 ### Prerequisites
 
-You should have installed the Node on your system, you can check it with:
+- Put this repo as a npm package dependence.
+
+- Execute the following lines:
+
+```
+npm install
+
+```
+
+- You should have installed Node on your system, you can check it with:
 
 ```
 Node --version
@@ -18,54 +23,87 @@ Node --version
 
 ### Installing
 
-After to download repository you should install appium
-
 ```
-npm install -g appium
-```
+node 12
 
-After that you can check if your appium server is installed correctly with this feature
-
-```
-npm install -g appium-doctor
-```
-
-If you execute in your terminal
-
-```
-appium-doctor
-```
-
-This feature say you if you need solve some problem or add some configuration. Then into repository folder you should execute:
-
-```
 npm install
+
+brew install
+
+github account to the project
 ```
 
-This install all dependencies of project.
+### Responsible
+
+Carlos Ferrao <carlos.ferrao@.com
 
 ## Running the tests
 
-For to run the automated tests you should go to the directory and execute this command:
+### Running automated tests for apps
+
+- You need to have the emulators/simulators below installed:
+  \*\* xCode simulators:
+  ![Preferences](/readmeImages/xcodePreferences.png)
+  ![Simulators](/readmeImages/xcodeSimulators.png)
+
+  \*\* androidStudio emulators:
+  ![SDK](/readmeImages/androidStudioSDK.png)
+  ![Emulators](/readmeImages/androidStudioEmulators.png)
+
+- You need to have the following ports enabled:
+  ** Open a terminal instance and execute: appium -p 4723 for android and appium -p 4725 for iOS.
+  ** For android you need to execute runPixelXL as well.
+
+- Find here some examples to run automated tests:
 
 ```
-node runner.js -d iphoneX
-```
-
-For view all parameters and features of runner, you can execute:
+npx wgautomationapps -a ${company} -d Pixel2XL -t ${testPath} -s ${server}
 
 ```
-node runner.js -h
+
+- You can find more documentation about parameters you can use to run a test executing the command lines below in a terminal:
+
+```
+npx wgautomationapps -h
 ```
 
-### Break down into end to end tests
+## Logs & Reports
 
-You can reveive email when the test execution fail, and you can parametrice it, if you want open issues on JIRA, or compare screenchots for expects of test..
+- There are different kind of logs and reports:
 
-* [Node](https://nodejs.org/en/) -
-* [Appium](http://appium.io/) -
-* [Mocha](https://mochajs.org/) -
+  - Console logs.
+  - Reports: the reports are stored in the folder "reports", where you will find two different format files, with the name
 
-## Author
+  [apps]'Company-TestResults-today.html'
+  and here you can see all the screenshots that did.
 
-* **Carlos Ferrao** - _Initial work_ -
+- Execute the next line in the folders project to open the reports folder and check whether test fails:
+
+```
+ open ./reports
+
+```
+
+## Deployment
+
+These tests will be run in the jenkins pipeline as a new stage of this.
+
+## Built With
+
+- We have two core packages with the arquitecture and configuration of the projects:
+  - wgautomationapps
+
+### Web is built with
+
+- [Mocha](https://mochajs.org/) - Testing mocha framework
+- [Protractor](https://https://www.protractortest.org/) - End to end javascript framework
+
+### Apps is built with
+
+- [Appium](https://http://appium.io/)
+- [xCode](https://https://developer.apple.com/xcode/)
+- [androidStudio](https://https://https://developer.android.com/studio/)
+
+## Authors
+
+- **Carlos Ferrao** - _Initial work_

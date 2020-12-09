@@ -2,15 +2,101 @@
 <html>
 
 <head>
-  <title>Test Results ONE</title>
+  <title>Test Results Wefox</title>
 
   <style>
+    body * {
+      box-sizing: border-box;
+      text-align: center;
+      justify-content: center;
+    }
+
     body {
       background-color: #ffffff;
     }
 
-    body * {
-      box-sizing: border-box;
+    .button-colapse {
+      background-color: #ffffff;
+      color: #324e81;
+      margin: 5px;
+      padding: 5px;
+      box-sizing: content-box;
+      text-align: center;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: bold;
+      font-size: 14px;
+      transition: all 0.15s;
+      list-style-type: none;
+    }
+
+    .container-buttons {
+      position: relative;
+      display: inline-flex;
+      margin: 20px;
+      align-items: center;
+      justify-content: center;
+      background-color: #ffffff;
+      overflow: hidden;
+      max-width: 100%;
+      padding: 0 20px;
+      border-radius: 40px;
+      box-shadow: 0 10px 40px rgba(106, 109, 121, 0.856);
+    }
+
+    .container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .prec {
+      top: 30px;
+      position: relative;
+      font-size: 22px;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      color: #3E606F;
+    }
+
+    .circle {
+      position: relative;
+      top: 14px;
+      left: 14px;
+      text-align: center;
+      width: 100px;
+      height: 100px;
+      border-radius: 100%;
+      background-color: white;
+    }
+
+    .active-border-warm {
+      position: relative;
+      text-align: center;
+      width: 130px;
+      height: 130px;
+      border-radius: 100%;
+      margin: 10px;
+      background-color: orange;
+    }
+
+    .active-border-fail {
+      position: relative;
+      text-align: center;
+      width: 130px;
+      height: 130px;
+      border-radius: 100%;
+      margin: 10px;
+      background-color: red;
+    }
+
+    .active-border-passed {
+      position: relative;
+      text-align: center;
+      width: 130px;
+      height: 130px;
+      border-radius: 100%;
+      margin: 10px;
+      background-color: green;
     }
 
     .header {
@@ -22,16 +108,28 @@
       text-transform: uppercase;
     }
 
+
     img {
       height: 60px;
     }
 
     h2 {
       padding-left: 5px;
+      text-align: left;
       font-weight: 150;
       font-size: 18px;
       font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
       color: #3E606F;
+    }
+
+
+    h3 {
+      padding-left: 5px;
+      text-align: left;
+      font-weight: 150;
+      font-size: 14px;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      color: rgb(44, 73, 85);
     }
 
     .table-test {
@@ -55,6 +153,11 @@
       background: #98c9ca;
     }
 
+    .test-fail {
+      color: #5e0e00;
+      background: #ff9c8a;
+    }
+
     .pass {
       color: #003b07;
       background: #86e191;
@@ -68,6 +171,16 @@
     .fail {
       color: #5e0e00;
       background: #ff9c8a;
+    }
+
+    .warn {
+      color: rgb(107, 29, 0);
+      background: orange;
+    }
+
+    .warn-pass {
+      color: rgb(107, 29, 0);
+      background: orange;
     }
 
     .fail.detail {
@@ -113,6 +226,7 @@
     }
 
     @media screen and (max-width: 700px) {
+
       table,
       tr,
       td {
@@ -126,6 +240,7 @@
         transform: translateY(-50%);
         width: 100px;
       }
+
       td:not(:first-child) {
         clear: both;
         margin-left: 100px;
@@ -133,6 +248,7 @@
         position: relative;
         text-align: left;
       }
+
       td:not(:first-child):before {
         color: #91ced4;
         content: '';
@@ -140,19 +256,24 @@
         left: 0;
         position: absolute;
       }
+
       td:nth-child(2):before {
         content: 'Test';
       }
+
       td:nth-child(3):before {
         content: 'Result';
       }
+
       td:nth-child(4):before {
         content: 'Time:';
       }
+
       tr {
         padding: 10px 0;
         position: relative;
       }
+
       tr:first-child {
         display: none;
       }
@@ -186,16 +307,19 @@
         transform: translateY(0);
         width: 100%;
       }
+
       td:not(:first-child) {
         margin: 0;
         padding: 5px 1em;
         width: 100%;
       }
+
       td:not(:first-child):before {
         font-size: .8em;
         padding-top: 0.3em;
         position: relative;
       }
+
       td:last-child {
         padding-bottom: 1rem !important;
       }
@@ -234,22 +358,313 @@
       font-family: 'ReginaBlack-Solid';
       color: #3E606F;
     }
+
+    #wefox-logo {
+      text-align: center;
+      height: 200px;
+      width: auto;
+      background: transparent url('https://media-exp1.licdn.com/dms/image/C4D0BAQGZIgAxbVyZNA/company-logo_200_200/0?e=2159024400&v=beta&t=Ky2Bt7FuskBBEG6pjHsazn-3a0xsopJxVOTRWLJEk7w') no-repeat;
+      background-size: initial;
+      background-position: center;
+    }
+
+    #wefox-list {
+      text-align: center;
+    }
   </style>
 </head>
 
 <body>
 
   <div>
-    <div id="titulo-logo">Test Results of ONE</div>
+    <div id="wefox-logo"></div>
+    <div id="titulo-logo">Test Results of {{team}}</div>
   </div>
-  <div id="one-list">
+  <div id="wefox-list">
+    <a class="list-test">
+      <strong>Environment:</strong> {{version}}</a>
     <a class="list-test">
       <strong>Date:</strong> {{timestamp}}</a>
   </div>
+
+  <div class="container">
+    <div id="activeBorderPassed" class="active-border-passed" style="background-image: {{passedPercentageConfg}};">
+      <div id="circle" class="circle">
+        <span class="prec" id="prec">{{passedPercentage}}%<br />Passed</span>
+      </div>
+    </div>
+    <div id="activeBorderFail" class="active-border-fail" style="background-image: {{failPercentageConfg}};">
+      <div id="circle" class="circle">
+        <span class="prec" id="prec">{{failPercentage}}%<br />Fails</span>
+      </div>
+    </div>
+
+    <div id="activeBorderWarm" class="active-border-warm" style="background-image: {{warnPercentageConfg}};">
+      <div id="circle" class="circle">
+        <span class="prec" id="prec">{{warnPercentage}}%<br />Warnings</span>
+      </div>
+    </div>
+  </div>
+
   <header>
+
+    <nav class="container-buttons">
+      <a class="button-colapse" onclick="expandCollapceSteps()"> All · Expand/Collapce </a>
+      <a class="button-colapse" onclick="displayOnlyFails()"> Fails </a>
+      <a class="button-colapse" onclick="displayOnlyPassed()"> Passed </a>
+      <a id="darkModeId" class="button-colapse" onclick="darkMode()"> Dark Mode </a>
+    </nav>
+
     <div class="table-test">
       {{#each tables}} {{{this}}} {{/each}}
     </div>
+
+    <script>
+      function expandCollapceSteps() {
+        var displayedPass;
+        var displayedFail;
+        var displayedWarn;
+        var displayedWarnPass;
+        var displayedTestPass;
+        var displayedTestFail;
+        var statusPassTest;
+        var statusFailTest;
+        var statusPass;
+        var statusFail;
+        var statusWarn;
+        var statusWarnPass;
+        var elementsPassTest = document.getElementsByClassName("test");
+        var elementsFailTest = document.getElementsByClassName("test-fail");
+        var elementsPass = document.getElementsByClassName("pass");
+        var elementsFail = document.getElementsByClassName("fail");
+        var elementsWarn = document.getElementsByClassName("warn");
+        var elementsWarnPass = document.getElementsByClassName("warn-pass");
+        var i;
+
+        if (elementsPassTest.length > 0) {
+          statusPassTest = elementsPassTest[0].style.display;
+        }
+        if (elementsFailTest.length > 0) {
+          statusFailTest = elementsFailTest[0].style.display;
+        }
+        if (elementsPass.length > 0) {
+          statusPass = elementsPass[0].style.display;
+        }
+        if (elementsFail.length > 0) {
+          statusFail = elementsFail[0].style.display;
+        }
+        if (elementsWarn.length > 0) {
+          statusWarn = elementsWarn[0].style.display;
+        }
+        if (elementsWarnPass.length > 0) {
+          statusWarnPass = elementsWarnPass[0].style.display;
+        }
+
+        if (statusPass === "none" || statusFail === "none" || statusWarn === "none" || statusWarnPass === "none" || statusPassTest === "none" || statusFailTest === "none") {
+          displayedPass = "table-cell";
+          displayedFail = "table-cell";
+          displayedWarn = "table-cell";
+          displayedWarnPass = "table-cell";
+          displayedTestPass = "table-cell";
+          displayedTestFail = "table-cell";
+        } else {
+          displayedPass = "none";
+          displayedFail = "none";
+          displayedWarn = "none";
+          displayedWarnPass = "none";
+          displayedTestPass = "table-cell";
+          displayedTestFail = "table-cell";
+        }
+
+        if (elementsPass.length > 0) {
+          for (i = 0; i < elementsPass.length; i++) {
+            elementsPass[i].style.display = displayedPass;
+          }
+        }
+        if (elementsFail.length > 0) {
+          for (i = 0; i < elementsFail.length; i++) {
+            elementsFail[i].style.display = displayedFail;
+          }
+        }
+        if (elementsWarn.length > 0) {
+          for (i = 0; i < elementsWarn.length; i++) {
+            elementsWarn[i].style.display = displayedWarn;
+          }
+        }
+        if (elementsWarnPass.length > 0) {
+          for (i = 0; i < elementsWarnPass.length; i++) {
+            elementsWarnPass[i].style.display = displayedWarnPass;
+          }
+        }
+        if (elementsPassTest.length > 0) {
+          for (i = 0; i < elementsPassTest.length; i++) {
+            elementsPassTest[i].style.display = displayedTestPass;
+          }
+        }
+        if (elementsFailTest.length > 0) {
+          for (i = 0; i < elementsFailTest.length; i++) {
+            elementsFailTest[i].style.display = displayedTestFail;
+          }
+        }
+      }
+
+      function displayOnlyPassed() {
+        var displayedTestPass;
+        var displayedTestFail;
+        var displayedPass;
+        var displayedFail;
+        var displayedWarn;
+        var displayedWarnPass;
+        var elementsPassTest = document.getElementsByClassName("test");
+        var elementsFailTest = document.getElementsByClassName("test-fail");
+        var elementsPass = document.getElementsByClassName("pass");
+        var elementsFail = document.getElementsByClassName("fail");
+        var elementsWarn = document.getElementsByClassName("warn");
+        var elementsWarnPass = document.getElementsByClassName("warn-pass");
+        var i;
+
+        displayedPass = "table-cell";
+        displayedFail = "none";
+        displayedWarn = "none";
+        displayedWarnPass = "table-cell"
+        displayedTestPass = "table-cell";
+        displayedTestFail = "none";
+
+        if (elementsPass.length > 0) {
+          for (i = 0; i < elementsPass.length; i++) {
+            elementsPass[i].style.display = displayedPass;
+          }
+        }
+        if (elementsFail.length > 0) {
+          for (i = 0; i < elementsFail.length; i++) {
+            elementsFail[i].style.display = displayedFail;
+          }
+        }
+        if (elementsWarn.length > 0) {
+          for (i = 0; i < elementsWarn.length; i++) {
+            elementsWarn[i].style.display = displayedWarn;
+          }
+        }
+        if (elementsWarnPass.length > 0) {
+          for (i = 0; i < elementsWarnPass.length; i++) {
+            elementsWarnPass[i].style.display = displayedWarnPass;
+          }
+        }
+        if (elementsPassTest.length > 0) {
+          for (i = 0; i < elementsPassTest.length; i++) {
+            elementsPassTest[i].style.display = displayedTestPass;
+          }
+        }
+        if (elementsFailTest.length > 0) {
+          for (i = 0; i < elementsFailTest.length; i++) {
+            elementsFailTest[i].style.display = displayedTestFail;
+          }
+        }
+      }
+
+      function displayOnlyFails() {
+        var displayedTestPass;
+        var displayedTestFail;
+        var displayedPass;
+        var displayedFail;
+        var displayedWarn;
+        var displayedWarnPass;
+        var elementsPassTest = document.getElementsByClassName("test");
+        var elementsFailTest = document.getElementsByClassName("test-fail");
+        var elementsPass = document.getElementsByClassName("pass");
+        var elementsFail = document.getElementsByClassName("fail");
+        var elementsWarn = document.getElementsByClassName("warn");
+        var elementsWarnPass = document.getElementsByClassName("warn-pass");
+        var i;
+
+        displayedPass = "none";
+        displayedFail = "table-cell";
+        displayedWarn = "table-cell";
+        displayedWarnPass = "none"
+        displayedTestPass = "none";
+        displayedTestFail = "table-cell";
+
+        if (elementsPass.length > 0) {
+          for (i = 0; i < elementsPass.length; i++) {
+            elementsPass[i].style.display = displayedPass;
+          }
+        }
+        if (elementsFail.length > 0) {
+          for (i = 0; i < elementsFail.length; i++) {
+            elementsFail[i].style.display = displayedFail;
+          }
+        }
+        if (elementsWarn.length > 0) {
+          for (i = 0; i < elementsWarn.length; i++) {
+            elementsWarn[i].style.display = displayedWarn;
+          }
+        }
+        if (elementsWarnPass.length > 0) {
+          for (i = 0; i < elementsWarnPass.length; i++) {
+            elementsWarnPass[i].style.display = displayedWarnPass;
+          }
+        }
+        if (elementsPassTest.length > 0) {
+          for (i = 0; i < elementsPassTest.length; i++) {
+            elementsPassTest[i].style.display = displayedTestPass;
+          }
+        }
+        if (elementsFailTest.length > 0) {
+          for (i = 0; i < elementsFailTest.length; i++) {
+            elementsFailTest[i].style.display = displayedTestFail;
+          }
+        }
+      }
+
+      function darkMode() {
+        var body = document.getElementsByTagName("body");
+        var circles = document.getElementsByClassName("circle");
+        var precs = document.getElementsByClassName("prec");
+        var h2s = document.getElementsByTagName("h2");
+        var h3s = document.getElementsByTagName("h3");
+        var textButton = document.getElementById("darkModeId").textContent;
+
+        var bodyColor;
+        var circleColor;
+        var textColor;
+        var h1Color;
+        var h2Color;
+        var labelButton;
+
+        if (textButton === " Dark Mode ") {
+          bodyColor = "black";
+          circleColor = "black";
+          textColor = "whitesmoke";
+          h2Color = "rgb(122, 154, 168)";
+          h3Color = "rgb(122, 154, 168)";
+          labelButton = " White Mode "
+        } else {
+          bodyColor = "white";
+          circleColor = "white";
+          textColor = "#3E606F";
+          h2Color = "#3E606F";
+          h3Color = "#3E606F";
+          labelButton = " Dark Mode "
+        }
+
+        document.getElementById("darkModeId").textContent = labelButton;
+        body[0].style["background-color"] = bodyColor;
+
+        for (i = 0; i < circles.length; i++) {
+          circles[i].style["background-color"] = circleColor;
+        }
+        for (i = 0; i < precs.length; i++) {
+          precs[i].style.color = textColor;
+        }
+        for (i = 0; i < h2s.length; i++) {
+          h2s[i].style.color = h2Color;
+        }
+        for (i = 0; i < h3s.length; i++) {
+          h3s[i].style.color = h3Color;
+        }
+      }
+    </script>
+
   </header>
   <div id="appium-logo">
     <img src="https://cdn.worldvectorlogo.com/logos/appium.svg"></img>

@@ -1,41 +1,66 @@
 {
-  "name": "appium-demo",
-  "version": "1.0.0",
-  "description": "Appium Demo",
-  "repository": {
-    "type": "git",
-    "url": ""
-  },
-  "keywords": [
-    "appium",
-    "sampl",
-    "examples"
-  ],
-  "author": "Carlos Ferrao",
-  "license": "Wefox",
-  "devDependencies": {
-    "chai": "^2.2.0",
-    "chai-as-promised": "^5.0.0",
-    "colors": "^1.2.1",
-    "mocha": "^2.4.5",
-    "q": "^2.0.2",
-    "underscore": "^1.8.3",
-    "wd": "^0.3.11"
-  },
-  "scripts": {
-    "test-objects": "mocha ./specs/test-login.js"
-  },
-  "dependencies": {
-    "caporal": "^0.9.0",
-    "handlebars": "^4.0.11",
-    "jira-connector": "^2.7.0",
-    "mocha-junit-reporter": "^1.17.0",
-    "mocha-prepare": "^0.1.0",
-    "node-resemble-js": "^0.2.0",
-    "nodemailer": "^4.6.4",
-    "png-crop": "0.0.1",
-    "selenium-webdriver": "^3.0.0-beta-3",
-    "wd-bridge": "0.0.2",
-    "xml2js": "^0.4.19"
-  }
+	"name": "wgautomationapps",
+	"version": "1.0.0",
+	"description": " apps automation",
+	"repository": {
+		"type": "git",
+		"url": ""
+	},
+	"main": "./index.js",
+	"bin": {
+		"wgautomationapps": "./bin/runner.js"
+	},
+	"keywords": [
+		"appium",
+		"iOS",
+		"Android"
+	],
+	"scripts": {
+		"eslinter": "./node_modules/.bin/eslint ."
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "npm run eslinter"
+		}
+	},
+	"author": "Carlos Ferrao",
+	"license": "",
+	"dependencies": {
+		"aws-sdk": "^2.699.0",
+		"caporal": "^1.4.0",
+		"chai": "^4.2.0",
+		"chai-as-promised": "^7.1.1",
+		"colors": "^1.4.0",
+		"dotenv": "^8.2.0",
+		"got": "^11.3.0",
+		"handlebars": "^4.7.6",
+		"husky": "^4.2.5",
+		"jira-connector": "^3.1.0",
+		"jsdoc": "^3.6.6",
+		"jsdom": "^16.2.2",
+		"jsforce": "^1.10.0",
+		"mail-listener2": "^0.3.1",
+		"mailparser": "^2.7.7",
+		"mocha": "^8.0.1",
+		"mocha-junit-reporter": "^2.0.0",
+		"mocha-prepare": "^0.1.0",
+		"moment": "^2.26.0",
+		"node-resemble-js": "^0.2.0",
+		"nodemailer": "^6.4.10",
+		"pdf2json": "^1.2.0",
+		"png-crop": "0.0.2",
+		"q": "^2.0.2",
+		"replace-in-file": "^6.1.0",
+		"safer-buffer": "^2.1.2",
+		"selenium-webdriver": "^4.0.0-alpha.7",
+		"underscore": "^1.10.2",
+		"uuid": "^8.3.1",
+		"wd": "^1.12.1",
+		"wd-bridge": "0.0.2",
+		"xml2js": "^0.4.23"
+	},
+	"devDependencies": {
+		"babel-eslint": "^10.1.0",
+		"eslint": "^7.3.1"
+	}
 }

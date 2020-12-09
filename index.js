@@ -1,0 +1,9 @@
+exports.makeTest = require('./helpers/setup').makeTest;
+exports.checkBirth = require('./services/checkBirth');
+exports.getDate = require('./services/getDate');
+exports.serverMail = require('./services/serverMail');
+exports.pageObjectIos = require('./lib/pageObjectIos');
+exports.pageObjectAndroid = require('./lib/pageObjectAndroid');
+exports.pageObjectWeb = require('./lib/pageObjectWeb');
+exports.jenkinsRunGetartifactbyRelativepath = require('./services/jenkins/jenkins-run-getartifactbyrelativepath');
+exports.sendReportToS3 = require('./services/aws').sendReportToS3;
